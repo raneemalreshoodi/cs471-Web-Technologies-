@@ -10,10 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+
+
+import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR, "apps" + os.sep + "templates")
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,8 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.bookmodule',
-    'apps.usermodule',
+    # 'apps.bookmodule',
+    # 'apps.usermodule', 
+      'apps.bookmodule',  # Ensure this is included
+    'apps.usermodule',  # Include other apps if needed
 ]
 
 MIDDLEWARE = [
@@ -53,10 +61,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'libraryproject.urls'
 
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_DIR],
+                # 'DIRS': [os.path.join(BASE_DIR, "apps", "bookmodule", "templates")],  # Ensure correct template directory
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +83,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'libraryproject.wsgi.application'
 
@@ -118,7 +134,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

@@ -14,9 +14,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import apps.bookmodule.views
+
 from django.contrib import admin
 from django.urls import path
-
+from django.urls import path, include
+from apps.bookmodule import views  # ✅ Correct Import
+from django.contrib import admin
+from django.urls import include, path
 urlpatterns = [
-    path('admin/', admin.site.urls),
+path('admin/', admin.site.urls),
+path('books/', include("apps.bookmodule.urls")), #include urls.py of bookmodule app
+path('users/', include("apps.usermodule.urls")) #include urls.py of usermodule app
 ]
+# urlpatterns = [
+# path('admin/', admin.site.urls),
+# path('', apps.bookmodule.views.index), #add only this line of code
+# # path('index2/<int:val1>/', apps.bookmodule.views.index2) #add only this line
+#   path('', views.index, name='index'),
+# path('books/', include("apps.bookmodule.urls")), #include urls.py of bookmodule app
+# path('users/', include("apps.usermodule.urls")) #include urls.py of usermodule app
+#   ]
+
+# import apps.templates # Ensure `include` is imported if used
